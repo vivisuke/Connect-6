@@ -338,13 +338,13 @@ func do_put(x, y):
 	if !bd.is_legal_put(x, y, next_color):
 		bd.remove_color(x, y)
 		return
-	var sx = bd.is_six(x, y, next_color)
-	print("is_six = ", sx)
-	if next_color == g.BLACK && sx:
-		# undone: beep ?
-		bd.remove_color(x, y)
-		$MessLabel.text = "overlines are prohibited"
-		return
+	#var sx = bd.is_six(x, y, next_color)
+	#print("is_six = ", sx)
+	#if next_color == g.BLACK && sx:
+	#	# undone: beep ?
+	#	bd.remove_color(x, y)
+	#	$MessLabel.text = "overlines are prohibited"
+	#	return
 	var pos = Vector2i(x, y)
 	move_ix = move_hist.size()
 	move_hist.push_back(pos)
@@ -535,12 +535,12 @@ func unit_test():
 	b2.put_color(4, 0, g.BLACK)
 	b2.put_color(5, 0, g.BLACK)
 	b2.put_color(6, 0, g.BLACK)				# ｜・●●●●●●・…｜
-	assert( !b2.is_legal_put(1, 0, g.BLACK) )
-	assert( !b2.is_legal_put(2, 0, g.BLACK) )
-	assert( !b2.is_legal_put(3, 0, g.BLACK) )
-	assert( !b2.is_legal_put(4, 0, g.BLACK) )
-	assert( !b2.is_legal_put(5, 0, g.BLACK) )
-	assert( !b2.is_legal_put(6, 0, g.BLACK) )
+	assert( b2.is_legal_put(1, 0, g.BLACK) )
+	assert( b2.is_legal_put(2, 0, g.BLACK) )
+	assert( b2.is_legal_put(3, 0, g.BLACK) )
+	assert( b2.is_legal_put(4, 0, g.BLACK) )
+	assert( b2.is_legal_put(5, 0, g.BLACK) )
+	assert( b2.is_legal_put(6, 0, g.BLACK) )
 	b2.clear()
 	b2.put_color(0, 4, g.WHITE)
 	b2.put_color(1, 4, g.BLACK)
@@ -551,14 +551,14 @@ func unit_test():
 	b2.put_color(4, 4, g.BLACK)		
 	assert( b2.is_legal_put(4, 4, g.BLACK) )	# 四三
 	b2.put_color(4, 6, g.BLACK)
-	assert( !b2.is_legal_put(4, 4, g.BLACK) )	# 四四
+	assert( b2.is_legal_put(4, 4, g.BLACK) )	# 四四
 	b2.clear()
 	b2.put_color(3, 4, g.BLACK)
 	b2.put_color(5, 4, g.BLACK)
 	b2.put_color(4, 3, g.BLACK)
 	b2.put_color(4, 5, g.BLACK)
 	b2.put_color(4, 4, g.BLACK)		
-	assert( !b2.is_legal_put(4, 4, g.BLACK) )	# 三三
+	assert( b2.is_legal_put(4, 4, g.BLACK) )	# 三三
 	b2.put_color(2, 4, g.WHITE)
 	assert( b2.is_legal_put(4, 4, g.BLACK) )	# 横方向が 非活三
 	#

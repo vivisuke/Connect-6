@@ -707,31 +707,32 @@ class Board:
 			if u[0] >= 0 && is_three_sub(u[1], u_white[u[0]], u_black[u[0]], u[2]): return true
 		return false
 	func is_legal_put(x, y, color):
-		if color == WHITE: return true
-		if is_six(x, y, BLACK): return false
-		var n3 = 0		# 活三 個数
-		var n4 = 0		# 活四 個数
-		var h = 1 << (N_HORZ - 1 - x)
-		var v = 1 << (N_HORZ - 1 - y)
-		var d = xyToDrIxMask(x, y)
-		var u = xyToUrIxMask(x, y)
-		if is_four_sub(1<<(N_HORZ-1-x), h_black[y], h_white[y]):
-			n4 += 1
-		elif is_three_sub(1<<(N_HORZ-1-x), h_black[y], h_white[y], N_HORZ):
-			n3 += 1
-		if is_four_sub(1<<(N_HORZ-1-y), v_black[x], v_white[x]):
-			n4 += 1
-		elif is_three_sub(1<<(N_HORZ-1-y), v_black[x], v_white[x], N_VERT):
-			n3 += 1
-		if d[0] >= 0 && is_four_sub(d[1], d_black[d[0]], d_white[d[0]]):
-			n4 += 1
-		elif d[0] >= 0 && is_three_sub(d[1], d_black[d[0]], d_white[d[0]], d[2]):
-			n3 += 1
-		if u[0] >= 0 && is_four_sub(u[1], u_black[u[0]], u_white[u[0]]):
-			n4 += 1
-		elif u[0] >= 0 && is_three_sub(u[1], u_black[u[0]], u_white[u[0]], u[2]):
-			n3 += 1
-		return n4 < 2 && n3 < 2
+		return true
+		#if color == WHITE: return true
+		#if is_six(x, y, BLACK): return false
+		#var n3 = 0		# 活三 個数
+		#var n4 = 0		# 活四 個数
+		#var h = 1 << (N_HORZ - 1 - x)
+		#var v = 1 << (N_HORZ - 1 - y)
+		#var d = xyToDrIxMask(x, y)
+		#var u = xyToUrIxMask(x, y)
+		#if is_four_sub(1<<(N_HORZ-1-x), h_black[y], h_white[y]):
+		#	n4 += 1
+		#elif is_three_sub(1<<(N_HORZ-1-x), h_black[y], h_white[y], N_HORZ):
+		#	n3 += 1
+		#if is_four_sub(1<<(N_HORZ-1-y), v_black[x], v_white[x]):
+		#	n4 += 1
+		#elif is_three_sub(1<<(N_HORZ-1-y), v_black[x], v_white[x], N_VERT):
+		#	n3 += 1
+		#if d[0] >= 0 && is_four_sub(d[1], d_black[d[0]], d_white[d[0]]):
+		#	n4 += 1
+		#elif d[0] >= 0 && is_three_sub(d[1], d_black[d[0]], d_white[d[0]], d[2]):
+		#	n3 += 1
+		#if u[0] >= 0 && is_four_sub(u[1], u_black[u[0]], u_white[u[0]]):
+		#	n4 += 1
+		#elif u[0] >= 0 && is_three_sub(u[1], u_black[u[0]], u_white[u[0]], u[2]):
+		#	n3 += 1
+		#return n4 < 2 && n3 < 2
 	func sel_move_randomly(next_color) -> Vector2i:
 		#var op = Vector2i(-1, -1)
 		var lst = []
@@ -741,7 +742,7 @@ class Board:
 				for x in range(N_HORZ):
 					if is_empty(x, y):
 						put_color(x, y, next_color)
-						if is_legal_put(x, y, next_color):
+						if true:	#is_legal_put(x, y, next_color):
 							var ev = calc_eval_diff(WHITE) + randfn(0.0, 10)
 							if ev > mx:
 								mx = ev
@@ -775,7 +776,7 @@ class Board:
 				for x in range(N_HORZ):
 					if is_empty(x, y):
 						put_color(x, y, next_color)
-						if is_legal_put(x, y, next_color):
+						if true:	#is_legal_put(x, y, next_color):
 							calc_eval_diff(WHITE)
 							if eval > mx:
 								mx = eval
@@ -809,7 +810,7 @@ class Board:
 			var ix = y * N_HORZ + x
 			if is_empty(x, y):
 				put_color(x, y, next_color)
-				if is_legal_put(x, y, next_color):
+				if true:	#is_legal_put(x, y, next_color):
 					if is_five(x, y, next_color):	# 五が出来た場合
 						var ev = 9999 if next_color == BLACK else -9999
 						put_order.push_back([ev, x, y])
@@ -848,7 +849,7 @@ class Board:
 				var y = prio_pos[i][1]
 				if is_empty(x, y):
 					put_color(x, y, next_color)
-					if is_legal_put(x, y, next_color):
+					if true:	#is_legal_put(x, y, next_color):
 						if is_five(x, y, next_color):
 							remove_color(x, y)
 							return 9000
@@ -889,7 +890,7 @@ class Board:
 				var y = prio_pos[i][1]
 				if is_empty(x, y):
 					put_color(x, y, BLACK)
-					if is_legal_put(x, y, BLACK):
+					if true:	#is_legal_put(x, y, BLACK):
 						calc_eval_diff(WHITE)
 						ev_pos.push_back([eval, x, y])
 					remove_color(x, y)
@@ -911,7 +912,7 @@ class Board:
 					var y = ev_pos[i][2]
 					if is_empty(x, y):
 						put_color(x, y, BLACK)
-						if is_legal_put(x, y, BLACK):
+						if true:	#is_legal_put(x, y, BLACK):
 							var ev = alpha_beta(WHITE, alpha, BETA, depth-1)
 							if ev > alpha:
 								alpha = ev
@@ -987,7 +988,7 @@ class Board:
 				elif (h_white[y] & mask) != 0: txt += "    O"
 				else:
 					put_color(x, y, next_color)
-					if next_color == BLACK && !is_legal_put(x, y, BLACK):
+					if next_color == BLACK:		# && !is_legal_put(x, y, BLACK):
 						txt += "  ---"
 					else:
 						calc_eval_diff(next_color)
