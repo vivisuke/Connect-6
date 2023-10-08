@@ -357,7 +357,9 @@ func do_put(x, y):
 	if bd.n_space == 0:
 		on_gameover(g.EMPTY)
 	else:
-		next_color = (g.BLACK + g.WHITE) - next_color
+		var nth = N_CELLS - bd.n_space		# 打った石の個数
+		if (nth%2) == 1: 
+			next_color = (g.BLACK + g.WHITE) - next_color
 	update_view()
 	#bd.print_eval(next_color)
 func on_gameover(wcol):
