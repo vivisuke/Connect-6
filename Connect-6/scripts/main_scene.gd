@@ -206,7 +206,8 @@ func _process(delta):
 		var x = bd.put_order[bd.put_order_ix][g.IX_X]
 		var y = bd.put_order[bd.put_order_ix][g.IX_Y]
 		bd.put_color(x, y, next_color)
-		if bd.is_five(x, y, next_color):	# 五が出来た場合
+		#if bd.is_five(x, y, next_color):	# 五が出来た場合
+		if bd.is_six(x, y, next_color):		# 六が出来た場合
 			best_pos = [x, y]
 			bd.put_order_ix = bd.put_order.size()	# 以降の着手評価はパス
 		else:
@@ -348,11 +349,13 @@ func do_put(x, y):
 	move_ix = move_hist.size()
 	move_hist.push_back(pos)
 	$HBC/UndoButton.disabled = false
-	var fv = bd.is_five(x, y, next_color)
-	print("is_five = ", fv)
+	#var fv = bd.is_five(x, y, next_color)
+	#print("is_five = ", fv)
+	var isx = bd.is_six(x, y, next_color)
+	print("is_six = ", isx)
 	#prev_put_pos = put_pos
 	put_pos = pos
-	if fv: on_gameover(next_color)
+	if isx: on_gameover(next_color)
 	#n_empty -= 1
 	if bd.n_space == 0:
 		on_gameover(g.EMPTY)
